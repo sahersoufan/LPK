@@ -7,24 +7,22 @@ public class bar2 : MonoBehaviour
 {
     public Sprite UP;
     public GameObject bar;
-    public void Start()
-    {
-        GameObject g = new GameObject();
-        Image i = g.AddComponent<Image>();
-        i.sprite = UP;
-        g.GetComponent<RectTransform>().SetParent(bar.transform);
-        g.SetActive(true);
 
-    }
-    /*
+
     public up Up;
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("test");
+
+
 
         if (other.name == "up")
         {
-            Instantiate(UP, new Vector3(300, 42, 0), Quaternion.identity);
-
+            GameObject g = new GameObject();
+            Image i = g.AddComponent<Image>();
+            i.sprite = UP;
+            g.GetComponent<RectTransform>().SetParent(bar.transform);
+            g.SetActive(true);
         }
         else if (other.name == "down")
         {
@@ -49,7 +47,5 @@ public class bar2 : MonoBehaviour
 
     }
 
-
-    */
 
 }
