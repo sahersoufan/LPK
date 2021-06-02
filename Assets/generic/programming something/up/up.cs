@@ -4,21 +4,55 @@ using UnityEngine;
 
 public class up : MonoBehaviour
 {
+    bool canMove;
+    bool dragging;
+    Vector3 basePos;
+    
+    BoxCollider2D collider;
 
-    public GameObject UP;
-    static float x = 1;
-    static bool t = false;
-    // Update is called once per frame
+    private void Start()
+    {
+        collider = GetComponent<BoxCollider2D>();
+        canMove = false;
+        dragging = false;
+        basePos = this.transform.position;
+    }
+
     void Update()
     {
-        if (t)
+        Vector2 mousePos = Input.mousePosition;
+        if (Input.GetMouseButtonDown(0))
         {
-            transform.position = new Vector3(x, 0, 0);
+
+            if (collider == Physics2D.OverlapPoint(mousePos))
+            {
+                canMove = transform;
+            }
+            else
+            {
+                canMove = false;
+            }
+
+            if(canMove) { dragging = true; }
         }
+
+        if (dragging)
+        {
+
+            this.transform.position = mousePos;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            canMove = false;
+            dragging = false;
+            if(this.transform.position.x <= bar2.xEdge())
+            {
+                bar2.addUp();
+            }
+            this.transform.position = basePos;
+        }
+
     }
-    public static void size()
-    {
-        x = 300;
-        t = true;
-    }
+
 }
