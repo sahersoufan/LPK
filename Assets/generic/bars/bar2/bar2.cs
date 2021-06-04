@@ -5,17 +5,18 @@ using UnityEngine.UI;
 
 public class bar2 : MonoBehaviour
 {
-    /*    public Sprite UP;
-    */
+
 
     private static BoxCollider2D boxCollider;
     private static GameObject stBar;
     private static GameObject stUp;
+    GameObject[] a;
     public  GameObject Bar;
     public GameObject upInBar;
     public GameObject downInBar;
     public GameObject leftInBar;
     public GameObject rightInBar;
+
 
 
     private void Start()
@@ -26,10 +27,7 @@ public class bar2 : MonoBehaviour
 
     }
 
-    public static float xEdge()
-    {
-        return (boxCollider.transform.position.x - boxCollider.size.x / 2);
-    }
+
 
     public static void addUp()
     {
@@ -37,8 +35,32 @@ public class bar2 : MonoBehaviour
         g.AddComponent<RectTransform>();
         g.GetComponent<RectTransform>().SetParent(stBar.transform);
         g.transform.localScale = new Vector3((float)0.34, (float)0.11, (float)1);
+        /*        GameObject[] objects =  FindGameObjectsInLayer(6
+        */
+        g.layer = 6;
         g.GetComponent<RectTransform>().localPosition = new Vector3((float)-20, (float)37.5, (float)0);
     }
+
+
+    static GameObject[] FindGameObjectsInLayer(int layer)
+    {
+        var goArray = FindObjectsOfType(typeof(GameObject)) as GameObject[];
+        var goList = new System.Collections.Generic.List<GameObject>();
+        for (int i = 0; i < goArray.Length; i++)
+        {
+            if (goArray[i].layer == layer)
+            {
+                goList.Add(goArray[i]);
+            }
+        }
+        if (goList.Count == 0)
+        {
+            return null;
+        }
+        return goList.ToArray();
+    }
+
+
 
 }
 
