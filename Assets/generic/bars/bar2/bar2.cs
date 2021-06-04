@@ -39,9 +39,9 @@ public class bar2 : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(stBar.transform);
             g.transform.localScale = new Vector3((float)0.34, (float)0.11, (float)1);
-            GameObject previos = getFromObjects(objects.Count - 1);
-            if (objects != null)
+            if (objects.Count > 0)
             {
+                GameObject previos = getFromObjects(objects.Count - 1);
                 g.name = "p" + counter4SoftwreClibs;
                 counter4SoftwreClibs++;
                 g.layer = 6;
@@ -77,25 +77,11 @@ public class bar2 : MonoBehaviour
     {
         return (GameObject)objects[index];
     }
-    static GameObject[] FindGameObjectsInLayer(int layer)
+
+    public static void removeFromObjects(GameObject g)
     {
-        var goArray = FindObjectsOfType(typeof(GameObject)) as GameObject[];
-        var goList = new System.Collections.Generic.List<GameObject>();
-        for (int i = 0; i < goArray.Length; i++)
-        {
-            if (goArray[i].layer == layer)
-            {
-                goList.Add(goArray[i]);
-            }
-        }
-        if (goList.Count == 0)
-        {
-            return null;
-        }
-        return goList.ToArray();
+        objects.Remove(g);
     }
-
-
 
 }
 

@@ -49,6 +49,7 @@ public class upInBar : MonoBehaviour
             if (this.transform.position.x < 1100)
             {
                 Destroy(this.gameObject);
+                bar2.removeFromObjects(this.gameObject);
             }
         }
 
