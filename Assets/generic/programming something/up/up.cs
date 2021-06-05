@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class up : MonoBehaviour
 {
+
+    private static GameObject stUp;
     bool canMove;
     bool dragging;
     Vector3 basePos;
@@ -16,6 +18,7 @@ public class up : MonoBehaviour
         canMove = false;
         dragging = false;
         basePos = this.transform.position;
+        stUp = this.gameObject;
     }
 
     void Update()
@@ -45,15 +48,28 @@ public class up : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             canMove = false;
-            dragging = false;
-            if(this.transform.position.x >= 1100)
+            float x = this.GetComponent<RectTransform>().position.x;
+            float y = this.GetComponent<RectTransform>().position.y;
+            Vector2 v = new Vector2(x, y);
+            GameObject objInList = bar2.isInsideAClibs(v);
+            if (bar2.isInside(v) && dragging)
             {
                 bar2.addUp();
-                Debug.Log(this.transform.position.x);
+            }else if (objInList != null && dragging)
+            {
+                bar2.addUpBetween(objInList);
             }
+
+
+
+
             this.transform.position = basePos;
+            dragging = false;
+
         }
 
     }
+
+
 
 }

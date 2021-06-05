@@ -26,7 +26,7 @@ public class upInBar : MonoBehaviour
 
             if (collider == Physics2D.OverlapPoint(mousePos))
             {
-                canMove = transform;
+                canMove = this.transform;
             }
             else
             {
@@ -45,13 +45,32 @@ public class upInBar : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             canMove = false;
-            dragging = false;
-            if (this.transform.position.x < 1100)
+            float x = this.GetComponent<RectTransform>().position.x;
+            float y = this.GetComponent<RectTransform>().position.y;
+            Vector2 v = new Vector2(x, y);
+
+
+            if (this.transform.position.x < 1100 && dragging)
             {
                 Destroy(this.gameObject);
                 bar2.removeFromObjects(this.gameObject);
             }
+
+            if (bar2.isInside(v) && dragging)
+            {
+                bar2.changeObjectPosition(this.gameObject);
+            }
+            else if (dragging)
+            {
+                bar2.makeItAsDefault(this.gameObject);
+            }
+
+
+            dragging = false;
+
         }
 
+
     }
+
 }

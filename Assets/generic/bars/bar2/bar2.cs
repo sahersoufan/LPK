@@ -30,7 +30,7 @@ public class bar2 : MonoBehaviour
     }
 
 
-
+   
     public static void addUp()
     {
         if (counter4SoftwreClibs < 11)
@@ -38,16 +38,14 @@ public class bar2 : MonoBehaviour
             GameObject g = Instantiate(stUp);
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(stBar.transform);
-            g.transform.localScale = new Vector3((float)0.34, (float)0.11, (float)1);
+            g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
             if (objects.Count > 0)
             {
                 GameObject previos = getFromObjects(objects.Count - 1);
-                g.name = "p" + counter4SoftwreClibs;
+                g.name = "u" + counter4SoftwreClibs;
                 counter4SoftwreClibs++;
                 g.layer = 6;
                 addtoObjects(g);
-                /*            Debug.Log(objects[objects.Length - 1].name);*/
-
                 float x = previos.GetComponent<RectTransform>().localPosition.x;
                 float y = previos.GetComponent<RectTransform>().localPosition.y;
                 float z = previos.GetComponent<RectTransform>().localPosition.z;
@@ -56,15 +54,17 @@ public class bar2 : MonoBehaviour
             }
             else
             {
-                g.name = "p" + counter4SoftwreClibs;
+                g.name = "u" + counter4SoftwreClibs;
                 counter4SoftwreClibs++;
                 g.layer = 6;
                 addtoObjects(g);
-                g.GetComponent<RectTransform>().localPosition = new Vector3((float)-20, (float)37.5, (float)0);
+                g.GetComponent<RectTransform>().localPosition = new Vector3((float)-26.5, (float)37.5, (float)0);
 
             }
 
-
+            float xColl = boxCollider.offset.x;
+            float yColl = boxCollider.offset.y;
+            boxCollider.offset = new Vector2(xColl, yColl - 7);
         }
     }
 
@@ -80,80 +80,125 @@ public class bar2 : MonoBehaviour
 
     public static void removeFromObjects(GameObject g)
     {
+        
+        for(int i = objects.IndexOf(g) + 1 ; i < objects.Count ; i++)
+        {
+            GameObject temp = (GameObject) objects[i];
+            float x = temp.GetComponent<RectTransform>().localPosition.x;
+            float y = temp.GetComponent<RectTransform>().localPosition.y;
+            float z = temp.GetComponent<RectTransform>().localPosition.z;
+            temp.GetComponent<RectTransform>().localPosition = new Vector3(x, y + 7, z);
+        }
         objects.Remove(g);
+
+        float xColl = boxCollider.offset.x;
+        float yColl = boxCollider.offset.y;
+        boxCollider.offset = new Vector2(xColl, yColl + 7);
     }
 
-}
 
 
 
 
-
-
-
-
-
-
-/*
-    void OnTriggerEnter2D(Collider2D other)
+    // if i drag the object to the last of objects
+    public static bool isInside(Vector2 point)
     {
+        return point == stBar.GetComponent<Collider2D>().ClosestPoint(point) ? true : false;
+    }
 
-
-        if (other.name == "up")
+    public static GameObject isInsideAClibs(Vector2 point)
+    {
+        for(int i = 0; i < objects.Count; i++)
         {
-            GameObject g =  Instantiate(upInBar);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(Bar.transform);
-            g.transform.localScale = new Vector3((float)0.34, (float)0.11, (float)1);
-            g.GetComponent<RectTransform>().localPosition = new Vector3((float)-20, (float)37.5, (float)0);
+            GameObject temp = (GameObject)objects[i];
+            if(point == temp.GetComponent<Collider2D>().ClosestPoint(point))
+            {
+                return temp;
             }
-        else if (other.name == "down")
-        {
-            GameObject g = Instantiate(downInBar);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(Bar.transform);
-            g.transform.localScale = new Vector3((float)0.34, (float)0.11, (float)1);
-            g.GetComponent<RectTransform>().localPosition = new Vector3((float)-20, (float)37.5, (float)0);
         }
-        else if (other.name == "left")
-        {
-            GameObject g = Instantiate(leftInBar);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(Bar.transform);
-            g.transform.localScale = new Vector3((float)0.34, (float)0.11, (float)1);
-            g.GetComponent<RectTransform>().localPosition = new Vector3((float)-20, (float)37.5, (float)0);
-        }
-        else if (other.name == "right")
-        {
-            GameObject g = Instantiate(rightInBar);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(Bar.transform);
-            g.transform.localScale = new Vector3((float)0.34, (float)0.11, (float)1);
-            g.GetComponent<RectTransform>().localPosition = new Vector3((float)-20, (float)37.5, (float)0);
-        }
-        *//*
-        else if (other.name == "rotateLeft")
-        {
+        return null;
+    }
 
-        }
-        else if (other.name == "rotateRight")
+    public static void changeObjectPosition(GameObject obj)
+    {
+        for (int i = objects.IndexOf(obj) + 1 ; i < objects.Count ; i++)
         {
+            GameObject temp = (GameObject)objects[i];
+            float x = temp.GetComponent<RectTransform>().localPosition.x;
+            float y = temp.GetComponent<RectTransform>().localPosition.y;
+            float z = temp.GetComponent<RectTransform>().localPosition.z;
+            temp.GetComponent<RectTransform>().localPosition = new Vector3(x, y + 7, z);
+        }
+        objects.Remove(obj);
 
-        }*//*
-
+        if (objects.Count > 0)
+        {
+            GameObject temp1 = (GameObject)objects[objects.Count - 1];
+            float x1 = temp1.GetComponent<RectTransform>().localPosition.x;
+            float y1 = temp1.GetComponent<RectTransform>().localPosition.y;
+            float z1 = temp1.GetComponent<RectTransform>().localPosition.z;
+            obj.GetComponent<RectTransform>().localPosition = new Vector3(x1, y1 - 7, z1);
+        }
+        else
+        {
+            obj.GetComponent<RectTransform>().localPosition = new Vector3((float)-26.5, (float)37.5, (float)0);
+        }
+        objects.Add(obj);
     }
 
 
+    public static void makeItAsDefault(GameObject obj)
+    {
+        int count = objects.Count;
+        int i = objects.IndexOf(obj);
+        if (i > 0)
+        {
+            GameObject temp = (GameObject)objects[i - 1];
+            float y = temp.GetComponent<RectTransform>().localPosition.y;
+            obj.GetComponent<RectTransform>().localPosition = new Vector3((float)-26.5, y - 7, (float) 0 );
+        }
+        else if(i == 0)
+        {
+            obj.GetComponent<RectTransform>().localPosition = new Vector3((float)-26.5, (float)37.5, (float)0);
+
+        }
+    }
+
+    public static void addUpBetween( GameObject obj)
+    {
+        if (counter4SoftwreClibs < 11)
+        {
+            GameObject g = Instantiate(stUp);
+            g.AddComponent<RectTransform>();
+            g.GetComponent<RectTransform>().SetParent(stBar.transform);
+            g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
+            g.name = "u" + counter4SoftwreClibs;
+            counter4SoftwreClibs++;
+            g.layer = 6;
+
+
+            float x = obj.GetComponent<RectTransform>().localPosition.x;
+            float y = obj.GetComponent<RectTransform>().localPosition.y;
+            float z = obj.GetComponent<RectTransform>().localPosition.z;
+            g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y, (float)z);
+
+
+
+            for (int i = objects.IndexOf(obj); i < objects.Count; i ++)
+            {
+                GameObject temp = (GameObject)objects[i];
+                float x1 = temp.GetComponent<RectTransform>().localPosition.x;
+                float y1 = temp.GetComponent<RectTransform>().localPosition.y;
+                float z1 = temp.GetComponent<RectTransform>().localPosition.z;
+                obj.GetComponent<RectTransform>().localPosition = new Vector3(x1, y1 - 7, z1);
+            }
+
+           
+            objects.Insert(objects.IndexOf(obj), g);
+
+
+
+        }
+
+    }
 }
-*/
-
-
-
-/*GameObject g = new GameObject();*/
-/*   Image i = g.AddComponent<Image>();
-i.sprite = UP;
-g.GetComponent<RectTransform>().SetParent(Bar.transform);
-g.layer = Bar.layer;
-g.transform.position = new Vector3(Bar.transform.position.x, Bar.transform.position.y, Bar.transform.position.z);
-g.transform.localScale = new Vector3((float) 0.5,(float) 0.5, (float) 0);
-g.SetActive(true);*/
