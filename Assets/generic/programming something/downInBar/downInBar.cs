@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class upInBar : MonoBehaviour
+public class downInBar : MonoBehaviour
 {
     bool canMove;
     bool dragging;
@@ -59,9 +59,9 @@ public class upInBar : MonoBehaviour
             {
                 bar2.changeObjectPosition(this.gameObject);
             }
-            else if ((temp =  bar2.isInsideAClibs4InBarClibs(this.gameObject)) && dragging)
+            else if ((temp = bar2.isInsideAClibs4InBarClibs(this.gameObject)) && dragging)
             {
-                
+
                 bar2.changeObjectPositionbetweenClibs(this.gameObject, temp);
             }
             else if (dragging)
@@ -76,5 +76,4 @@ public class upInBar : MonoBehaviour
 
 
     }
-
 }

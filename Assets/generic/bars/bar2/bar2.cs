@@ -10,6 +10,9 @@ public class bar2 : MonoBehaviour
     private static BoxCollider2D boxCollider;
     private static GameObject stBar;
     private static GameObject stUp;
+    private static GameObject stDown;
+    private static GameObject stLeft;
+    private static GameObject stRight;
     private static ArrayList objects = new ArrayList();
     public GameObject Bar;
     public GameObject upInBar;
@@ -26,10 +29,13 @@ public class bar2 : MonoBehaviour
         boxCollider = this.GetComponent<BoxCollider2D>();
         stBar = Bar;
         stUp = upInBar;
-
+        stDown = downInBar;
+        stLeft = leftInBar;
+        stRight = rightInBar;
     }
 
 
+    //              UP               //
    
     public static void addUp()
     {
@@ -67,6 +73,298 @@ public class bar2 : MonoBehaviour
             boxCollider.offset = new Vector2(xColl, yColl - 7);
         }
     }
+
+    public static void addUpBetween(GameObject obj)
+    {
+        if (counter4SoftwreClibs < 11)
+        {
+            GameObject g = Instantiate(stUp);
+            g.AddComponent<RectTransform>();
+            g.GetComponent<RectTransform>().SetParent(stBar.transform);
+            g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
+            g.name = "u" + counter4SoftwreClibs;
+            counter4SoftwreClibs++;
+            g.layer = 6;
+
+
+            float x = obj.GetComponent<RectTransform>().localPosition.x;
+            float y = obj.GetComponent<RectTransform>().localPosition.y;
+            float z = obj.GetComponent<RectTransform>().localPosition.z;
+            g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y, (float)z);
+
+
+
+            for (int i = objects.IndexOf(obj); i < objects.Count; i++)
+            {
+                GameObject temp = (GameObject)objects[i];
+                float x1 = temp.GetComponent<RectTransform>().localPosition.x;
+                float y1 = temp.GetComponent<RectTransform>().localPosition.y;
+                float z1 = temp.GetComponent<RectTransform>().localPosition.z;
+                obj.GetComponent<RectTransform>().localPosition = new Vector3(x1, y1 - 7, z1);
+            }
+
+
+            objects.Insert(objects.IndexOf(obj), g);
+
+
+
+        }
+
+    }
+
+    //              DOWN                //
+
+    public static void addDown()
+    {
+        if (counter4SoftwreClibs < 11)
+        {
+            GameObject g = Instantiate(stDown);
+            g.AddComponent<RectTransform>();
+            g.GetComponent<RectTransform>().SetParent(stBar.transform);
+            g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
+            if (objects.Count > 0)
+            {
+                GameObject previos = getFromObjects(objects.Count - 1);
+                g.name = "d" + counter4SoftwreClibs;
+                counter4SoftwreClibs++;
+                g.layer = 6;
+                addtoObjects(g);
+                float x = previos.GetComponent<RectTransform>().localPosition.x;
+                float y = previos.GetComponent<RectTransform>().localPosition.y;
+                float z = previos.GetComponent<RectTransform>().localPosition.z;
+                g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y - 7, (float)z);
+
+            }
+            else
+            {
+                g.name = "d" + counter4SoftwreClibs;
+                counter4SoftwreClibs++;
+                g.layer = 6;
+                addtoObjects(g);
+                g.GetComponent<RectTransform>().localPosition = new Vector3((float)-26.5, (float)37.5, (float)0);
+
+            }
+
+            float xColl = boxCollider.offset.x;
+            float yColl = boxCollider.offset.y;
+            boxCollider.offset = new Vector2(xColl, yColl - 7);
+        }
+    }
+
+    public static void addDownBetween(GameObject obj)
+    {
+        if (counter4SoftwreClibs < 11)
+        {
+            GameObject g = Instantiate(stDown);
+            g.AddComponent<RectTransform>();
+            g.GetComponent<RectTransform>().SetParent(stBar.transform);
+            g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
+            g.name = "d" + counter4SoftwreClibs;
+            counter4SoftwreClibs++;
+            g.layer = 6;
+
+
+            float x = obj.GetComponent<RectTransform>().localPosition.x;
+            float y = obj.GetComponent<RectTransform>().localPosition.y;
+            float z = obj.GetComponent<RectTransform>().localPosition.z;
+            g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y, (float)z);
+
+
+
+            for (int i = objects.IndexOf(obj); i < objects.Count; i++)
+            {
+                GameObject temp = (GameObject)objects[i];
+                float x1 = temp.GetComponent<RectTransform>().localPosition.x;
+                float y1 = temp.GetComponent<RectTransform>().localPosition.y;
+                float z1 = temp.GetComponent<RectTransform>().localPosition.z;
+                obj.GetComponent<RectTransform>().localPosition = new Vector3(x1, y1 - 7, z1);
+            }
+
+
+            objects.Insert(objects.IndexOf(obj), g);
+
+
+
+        }
+
+    }
+
+    //              LEFT             //
+    public static void addLeft()
+    {
+        if (counter4SoftwreClibs < 11)
+        {
+            GameObject g = Instantiate(stLeft);
+            g.AddComponent<RectTransform>();
+            g.GetComponent<RectTransform>().SetParent(stBar.transform);
+            g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
+            if (objects.Count > 0)
+            {
+                GameObject previos = getFromObjects(objects.Count - 1);
+                g.name = "l" + counter4SoftwreClibs;
+                counter4SoftwreClibs++;
+                g.layer = 6;
+                addtoObjects(g);
+                float x = previos.GetComponent<RectTransform>().localPosition.x;
+                float y = previos.GetComponent<RectTransform>().localPosition.y;
+                float z = previos.GetComponent<RectTransform>().localPosition.z;
+                g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y - 7, (float)z);
+
+            }
+            else
+            {
+                g.name = "l" + counter4SoftwreClibs;
+                counter4SoftwreClibs++;
+                g.layer = 6;
+                addtoObjects(g);
+                g.GetComponent<RectTransform>().localPosition = new Vector3((float)-26.5, (float)37.5, (float)0);
+
+            }
+
+            float xColl = boxCollider.offset.x;
+            float yColl = boxCollider.offset.y;
+            boxCollider.offset = new Vector2(xColl, yColl - 7);
+        }
+    }
+
+    public static void addLeftBetween(GameObject obj)
+    {
+        if (counter4SoftwreClibs < 11)
+        {
+            GameObject g = Instantiate(stLeft);
+            g.AddComponent<RectTransform>();
+            g.GetComponent<RectTransform>().SetParent(stBar.transform);
+            g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
+            g.name = "l" + counter4SoftwreClibs;
+            counter4SoftwreClibs++;
+            g.layer = 6;
+
+
+            float x = obj.GetComponent<RectTransform>().localPosition.x;
+            float y = obj.GetComponent<RectTransform>().localPosition.y;
+            float z = obj.GetComponent<RectTransform>().localPosition.z;
+            g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y, (float)z);
+
+
+
+            for (int i = objects.IndexOf(obj); i < objects.Count; i++)
+            {
+                GameObject temp = (GameObject)objects[i];
+                float x1 = temp.GetComponent<RectTransform>().localPosition.x;
+                float y1 = temp.GetComponent<RectTransform>().localPosition.y;
+                float z1 = temp.GetComponent<RectTransform>().localPosition.z;
+                obj.GetComponent<RectTransform>().localPosition = new Vector3(x1, y1 - 7, z1);
+            }
+
+
+            objects.Insert(objects.IndexOf(obj), g);
+
+
+
+        }
+
+    }
+
+    //              RIGHT                //
+
+    public static void addRight()
+    {
+        if (counter4SoftwreClibs < 11)
+        {
+            GameObject g = Instantiate(stRight);
+            g.AddComponent<RectTransform>();
+            g.GetComponent<RectTransform>().SetParent(stBar.transform);
+            g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
+            if (objects.Count > 0)
+            {
+                GameObject previos = getFromObjects(objects.Count - 1);
+                g.name = "r" + counter4SoftwreClibs;
+                counter4SoftwreClibs++;
+                g.layer = 6;
+                addtoObjects(g);
+                float x = previos.GetComponent<RectTransform>().localPosition.x;
+                float y = previos.GetComponent<RectTransform>().localPosition.y;
+                float z = previos.GetComponent<RectTransform>().localPosition.z;
+                g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y - 7, (float)z);
+
+            }
+            else
+            {
+                g.name = "r" + counter4SoftwreClibs;
+                counter4SoftwreClibs++;
+                g.layer = 6;
+                addtoObjects(g);
+                g.GetComponent<RectTransform>().localPosition = new Vector3((float)-26.5, (float)37.5, (float)0);
+
+            }
+
+            float xColl = boxCollider.offset.x;
+            float yColl = boxCollider.offset.y;
+            boxCollider.offset = new Vector2(xColl, yColl - 7);
+        }
+    }
+
+    public static void addRightBetween(GameObject obj)
+    {
+        if (counter4SoftwreClibs < 11)
+        {
+            GameObject g = Instantiate(stRight);
+            g.AddComponent<RectTransform>();
+            g.GetComponent<RectTransform>().SetParent(stBar.transform);
+            g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
+            g.name = "r" + counter4SoftwreClibs;
+            counter4SoftwreClibs++;
+            g.layer = 6;
+
+
+            float x = obj.GetComponent<RectTransform>().localPosition.x;
+            float y = obj.GetComponent<RectTransform>().localPosition.y;
+            float z = obj.GetComponent<RectTransform>().localPosition.z;
+            g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y, (float)z);
+
+
+
+            for (int i = objects.IndexOf(obj); i < objects.Count; i++)
+            {
+                GameObject temp = (GameObject)objects[i];
+                float x1 = temp.GetComponent<RectTransform>().localPosition.x;
+                float y1 = temp.GetComponent<RectTransform>().localPosition.y;
+                float z1 = temp.GetComponent<RectTransform>().localPosition.z;
+                obj.GetComponent<RectTransform>().localPosition = new Vector3(x1, y1 - 7, z1);
+            }
+
+
+            objects.Insert(objects.IndexOf(obj), g);
+
+
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // DEAL WITH OBJECTS LIST //
 
     private static void addtoObjects(GameObject obj)
     {
@@ -119,6 +417,24 @@ public class bar2 : MonoBehaviour
         return null;
     }
 
+    public static GameObject isInsideAClibs4InBarClibs(GameObject obj)
+    {
+
+        float x = obj.GetComponent<RectTransform>().position.x;
+        float y = obj.GetComponent<RectTransform>().position.y;
+        Vector2 point = new Vector2(x, y);
+        for (int i = 0; i < objects.Count; i++)
+        {
+            GameObject temp = (GameObject)objects[i];
+            if (point == temp.GetComponent<Collider2D>().ClosestPoint(point) && !temp.Equals(obj))
+            {
+                return temp;
+            }
+        }
+        return null;
+    }
+
+
     public static void changeObjectPosition(GameObject obj)
     {
         for (int i = objects.IndexOf(obj) + 1 ; i < objects.Count ; i++)
@@ -164,41 +480,49 @@ public class bar2 : MonoBehaviour
         }
     }
 
-    public static void addUpBetween( GameObject obj)
+    public static void changeObjectPositionbetweenClibs(GameObject obj, GameObject obj2)
     {
-        if (counter4SoftwreClibs < 11)
+        int i = objects.IndexOf(obj) + 1;
+        if (i - 1 < objects.IndexOf(obj2))
         {
-            GameObject g = Instantiate(stUp);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(stBar.transform);
-            g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
-            g.name = "u" + counter4SoftwreClibs;
-            counter4SoftwreClibs++;
-            g.layer = 6;
-
-
-            float x = obj.GetComponent<RectTransform>().localPosition.x;
-            float y = obj.GetComponent<RectTransform>().localPosition.y;
-            float z = obj.GetComponent<RectTransform>().localPosition.z;
-            g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y, (float)z);
-
-
-
-            for (int i = objects.IndexOf(obj); i < objects.Count; i ++)
+            for (; i <= objects.IndexOf(obj2); i++)
             {
                 GameObject temp = (GameObject)objects[i];
-                float x1 = temp.GetComponent<RectTransform>().localPosition.x;
-                float y1 = temp.GetComponent<RectTransform>().localPosition.y;
-                float z1 = temp.GetComponent<RectTransform>().localPosition.z;
-                obj.GetComponent<RectTransform>().localPosition = new Vector3(x1, y1 - 7, z1);
+                float x = temp.GetComponent<RectTransform>().localPosition.x;
+                float y = temp.GetComponent<RectTransform>().localPosition.y;
+                float z = temp.GetComponent<RectTransform>().localPosition.z;
+                temp.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y + 7, (float)z);
             }
+            objects.Remove(obj);
 
-           
-            objects.Insert(objects.IndexOf(obj), g);
+            GameObject temp2 = (GameObject)objects[objects.IndexOf(obj2)];
+            float x1 = temp2.GetComponent<RectTransform>().localPosition.x;
+            float y1 = temp2.GetComponent<RectTransform>().localPosition.y;
+            float z1 = temp2.GetComponent<RectTransform>().localPosition.z;
+            obj.GetComponent<RectTransform>().localPosition = new Vector3((float)x1, (float)y1 - 7, (float)z1);
+            objects.Insert(objects.IndexOf(obj2) + 1, obj);
+        }
+        else if (i - 1 > objects.IndexOf(obj2))
+        {
+            i -= 2;
+            for(; i >= objects.IndexOf(obj2); i--)
+            {
+                GameObject temp = (GameObject)objects[i];
+                float x = temp.GetComponent<RectTransform>().localPosition.x;
+                float y = temp.GetComponent<RectTransform>().localPosition.y;
+                float z = temp.GetComponent<RectTransform>().localPosition.z;
+                temp.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y - 7, (float)z);
+            }
+            objects.Remove(obj);
 
-
+            GameObject temp2 = (GameObject)objects[objects.IndexOf(obj2)];
+            float x1 = temp2.GetComponent<RectTransform>().localPosition.x;
+            float y1 = temp2.GetComponent<RectTransform>().localPosition.y;
+            float z1 = temp2.GetComponent<RectTransform>().localPosition.z;
+            obj.GetComponent<RectTransform>().localPosition = new Vector3((float)x1, (float)y1 + 7, (float)z1);
+            objects.Insert(objects.IndexOf(obj2), obj);
 
         }
-
     }
+
 }
