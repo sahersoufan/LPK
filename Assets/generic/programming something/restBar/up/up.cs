@@ -5,7 +5,7 @@ using UnityEngine;
 public class up : MonoBehaviour
 {
 
-    [SerializeField] GameObject b2;
+    private GameObject b2;
     bool canMove;
     bool dragging;
     Vector3 basePos;
@@ -14,6 +14,7 @@ public class up : MonoBehaviour
 
     private void Start()
     {
+        b2 = this.transform.parent.parent.parent.Find("bar2").gameObject;
         upCollider = GetComponent<BoxCollider2D>();
         canMove = false;
         dragging = false;
@@ -52,33 +53,33 @@ public class up : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             canMove = false;
-            if (barScript.isInside(v) && dragging)
-            {
-                barScript.addUp();
-                dragging = false;
-            }
-            GameObject objInList;
-            if (dragging && (objInList = barScript.isInsideAClibs(v)) != null )
-            {
-                barScript.addUpBetween(objInList);
-                dragging = false;
-            }
-            GameObject ForObject;
-            if ((ForObject = barScript.isInsideForBody(v)) != null && dragging)
-            {
-                barScript.addUpInForBody(ForObject);
-                dragging = false;
-            }
-            
-            if (barScript.isInsideAForClibsAndAddIt(v,"up") && dragging)
-            {                 
-                dragging = false;
-            }
 
+            if (dragging)
+            {
+                GameObject temp;
+                if (barScript.isInside(v) && dragging)
+                {
+                    barScript.addUp();
+                    dragging = false;
+                }
+                if (dragging && (temp = barScript.isInsideAClibs(v)) != null)
+                {
+                    barScript.addUpBetween(temp);
+                    dragging = false;
+                }
+                if ((temp = barScript.isInsideForBody(v)) != null && dragging)
+                {
+                    barScript.addUpInForBody(temp);
+                    dragging = false;
+                }
 
-            this.transform.localPosition = basePos;
-            dragging = false;
-
+                if (barScript.isInsideAForClibsAndAddIt(v, "up") && dragging)
+                {
+                    dragging = false;
+                }
+                this.transform.localPosition = basePos;
+                dragging = false;
+            }
         }
         
 

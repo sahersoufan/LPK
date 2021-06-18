@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Right : MonoBehaviour
 {
-    [SerializeField] GameObject b2;
+    private GameObject b2;
 
     private static GameObject stDown;
     bool canMove;
@@ -15,6 +15,7 @@ public class Right : MonoBehaviour
 
     private void Start()
     {
+        b2 = this.transform.parent.parent.parent.Find("bar2").gameObject;
         rightCollider = GetComponent<BoxCollider2D>();
         canMove = false;
         dragging = false;
@@ -55,34 +56,33 @@ public class Right : MonoBehaviour
         {
 
             canMove = false;
-            
-            if (barScript.isInside(v) && dragging)
+
+            if (dragging)
             {
-                barScript.addRight();
+                GameObject temp;
+                if (barScript.isInside(v) && dragging)
+                {
+                    barScript.addRight();
+                    dragging = false;
+                }
+                if (dragging && (temp = barScript.isInsideAClibs(v)) != null)
+                {
+                    barScript.addRightBetween(temp);
+                    dragging = false;
+                }
+                if ((temp = barScript.isInsideForBody(v)) != null && dragging)
+                {
+                    barScript.addRightInForBody(temp);
+                    dragging = false;
+                }
+
+                if (barScript.isInsideAForClibsAndAddIt(v, "right") && dragging)
+                {
+                    dragging = false;
+                }
+                this.transform.localPosition = basePos;
                 dragging = false;
             }
-            GameObject objInList;
-
-            if (dragging && (objInList = barScript.isInsideAClibs(v)) != null)
-            {
-                barScript.addRightBetween(objInList);
-                dragging = false;
-            }
-            GameObject ForObject = barScript.isInsideForBody(v);
-            if ((ForObject = barScript.isInsideForBody(v)) != null && dragging)
-            {
-                barScript.addRightInForBody(ForObject);
-                dragging = false;
-            }
-            if (barScript.isInsideAForClibsAndAddIt(v, "right") && dragging)
-            {
-                dragging = false;
-            }
-
-
-            this.transform.localPosition = basePos;
-            dragging = false;
-
         }
 
     }

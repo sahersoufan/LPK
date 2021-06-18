@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class downInBar : MonoBehaviour
 {
-    private GameObject b2;
     bool canMove;
     bool dragging;
 
@@ -45,42 +44,42 @@ public class downInBar : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            var barScript = b2.GetComponent<bar2>();
-
             canMove = false;
-            float x = this.GetComponent<RectTransform>().position.x;
-            float y = this.GetComponent<RectTransform>().position.y;
-            Vector2 v = new Vector2(x, y);
-            GameObject temp;
-
-            if (this.transform.position.x < 1100 && dragging)
+            if (dragging)
             {
-                Destroy(this.gameObject);
-                barScript.removeFromObjects(this.gameObject);
-            }
-            if (barScript.isInside(v) && dragging)
-            {
-                barScript.changeObjectPosition(this.gameObject);
-            }
-            else if ((temp = barScript.isInsideAClibs4InBarClibs(this.gameObject)) && dragging)
-            {
+                var barScript = this.transform.parent.GetComponent<bar2>();
+                float x = this.GetComponent<RectTransform>().localPosition.x;
+                float y = this.GetComponent<RectTransform>().localPosition.y;
+                Vector2 v = new Vector2(x, y);
+                GameObject temp;
+                if (barScript.canRemove(v) && dragging)
+                {
+                    barScript.removeFromObjects(this.gameObject);
+                    Destroy(this.gameObject);
+                    dragging = false;
 
-                barScript.changeObjectPositionbetweenClibs(this.gameObject, temp);
+                }
+                if (barScript.isInside(v) && dragging)
+                {
+                    barScript.changeObjectPosition(this.gameObject);
+                    dragging = false;
+                }
+                if ((temp = barScript.isInsideAClibs4InBarClibs(this.gameObject)) && dragging)
+                {
+
+                    barScript.changeObjectPositionbetweenClibs(this.gameObject, temp);
+                    dragging = false;
+
+                }
+                if (dragging)
+                {
+                    barScript.makeItAsDefault(this.gameObject);
+                    dragging = false;
+                }
+
             }
-            else if (dragging)
-            {
-                barScript.makeItAsDefault(this.gameObject);
-            }
-
-
-            dragging = false;
-
         }
 
 
-    }
-    public void setb2(GameObject b2)
-    {
-        this.b2 = b2;
     }
 }

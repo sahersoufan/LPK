@@ -4,21 +4,9 @@ using UnityEngine;
 
 public class downInFor : MonoBehaviour
 {
-    private GameObject For;
     bool canMove;
     bool dragging;
     BoxCollider2D downCollider;
-
-
-    public void setFor(GameObject For)
-    {
-        this.For = For;
-    }
-
-    public GameObject getFor()
-    {
-        return this.gameObject;
-    }
 
 
 
@@ -57,7 +45,7 @@ public class downInFor : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            var ForScript = For.GetComponent<forInBar>();
+            var ForScript = this.transform.parent.transform.parent.GetComponent<forInBar>();
 
             canMove = false;
             GameObject temp;

@@ -8,14 +8,13 @@ public class forInBar : MonoBehaviour
     [SerializeField] GameObject downInFor;
     [SerializeField] GameObject leftInFor;
     [SerializeField] GameObject rightInFor;
-    private GameObject b2;
     bool canMove;
     bool dragging;
     BoxCollider2D upCollider;
 
-    [SerializeField] GameObject Body;
-    [SerializeField] GameObject forBody;
-    [SerializeField] GameObject collider4ForBody;
+    private GameObject Body;
+    private GameObject forBody;
+    private GameObject collider4ForBody;
     private ArrayList objects = new ArrayList();
     int counter4SoftwreClibs = 0;
 
@@ -39,9 +38,11 @@ public class forInBar : MonoBehaviour
         return canWork;
     }
 
-
     void Start()
     {
+        Body = transform.Find("Body").gameObject;
+        forBody = transform.Find("Body").gameObject.transform.Find("ForBody").gameObject;
+        collider4ForBody = transform.Find("Body").gameObject.transform.Find("collider4ForBody").gameObject;
         upCollider = GetComponent<BoxCollider2D>();
         canMove = false;
         dragging = false;
@@ -79,46 +80,49 @@ public class forInBar : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            var barScript = b2.GetComponent<bar2>();
-
             canMove = false;
-            float x = this.GetComponent<RectTransform>().position.x;
-            float y = this.GetComponent<RectTransform>().position.y;
-            Vector2 v = new Vector2(x, y);
-            GameObject temp;
-
-            if (this.transform.position.x < 1100 && dragging)
+            if (dragging)
             {
-                barScript.removeFromObjects(this.gameObject);
-                Destroy(this.gameObject);
-
-            }
-            if (barScript.isInside(v) && dragging)
-            {
-                barScript.changeObjectPosition(this.gameObject);
-            }
-            else if ((temp = barScript.isInsideAClibs4InBarClibs(this.gameObject)) && dragging)
-            {
-
-                barScript.changeObjectPositionbetweenClibs(this.gameObject, temp);
-            }
-            else if (dragging)
-            {
-                barScript.makeItAsDefault(this.gameObject);
-                if (Body.active == false)
+                var barScript = this.transform.parent.GetComponent<bar2>();
+                float x = this.GetComponent<RectTransform>().localPosition.x;
+                float y = this.GetComponent<RectTransform>().localPosition.y;
+                Vector2 v = new Vector2(x, y);
+                GameObject temp;
+                if (barScript.canRemove(v) && dragging)
                 {
-                    ActiveForBody(true);
-                    canWork = true;
+                    barScript.removeFromObjects(this.gameObject);
+                    Destroy(this.gameObject);
+                    dragging = false;
+
                 }
-                else
+                if (barScript.isInside(v) && dragging)
                 {
-                    ActiveForBody(false);
-                    canWork = false;
+                    barScript.changeObjectPosition(this.gameObject);
+                    dragging = false;
+                }
+                if ((temp = barScript.isInsideAClibs4InBarClibs(this.gameObject)) && dragging)
+                {
+
+                    barScript.changeObjectPositionbetweenClibs(this.gameObject, temp);
+                    dragging = false;
+
+                }
+                if (dragging)
+                {
+                    barScript.makeItAsDefault(this.gameObject);
+                    if (Body.active == false)
+                    {
+                        ActiveForBody(true);
+                        canWork = true;
+                    }
+                    else
+                    {
+                        ActiveForBody(false);
+                        canWork = false;
+                    }
+                    dragging = false;
                 }
             }
-
-
-            dragging = false;
 
            GameObject button =  this.transform.Find("header").gameObject.transform.Find("num").gameObject;
            button.GetComponent<num>().setMaxNum(3);
@@ -135,7 +139,7 @@ public class forInBar : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
             g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.GetComponent<upInFor>().setFor(this.gameObject);
+            g.name = name + "u" + counter4SoftwreClibs++;
             AddIt(g);
             repairObjectView();
         }
@@ -149,8 +153,6 @@ public class forInBar : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
             g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.GetComponent<upInFor>().setFor(this.gameObject);
-
             g.name = name + "u" + counter4SoftwreClibs++;
             AddItBetweenCLibs(obj, g);
             repairObjectView();
@@ -167,7 +169,7 @@ public class forInBar : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
             g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.GetComponent<downInFor>().setFor(this.gameObject);
+            g.name = name + "d" + counter4SoftwreClibs++;
             AddIt(g);
             repairObjectView();
         }
@@ -181,9 +183,7 @@ public class forInBar : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
             g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.GetComponent<downInFor>().setFor(this.gameObject);
-
-            g.name = name + "u" + counter4SoftwreClibs++;
+            g.name = name + "d" + counter4SoftwreClibs++;
             AddItBetweenCLibs(obj, g);
             repairObjectView();
 
@@ -199,7 +199,7 @@ public class forInBar : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
             g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.GetComponent<leftInFor>().setFor(this.gameObject);
+            g.name = name + "l" + counter4SoftwreClibs++;
             AddIt(g);
             repairObjectView();
         }
@@ -213,9 +213,7 @@ public class forInBar : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
             g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.GetComponent<leftInFor>().setFor(this.gameObject);
-
-            g.name = name + "u" + counter4SoftwreClibs++;
+            g.name = name + "l" + counter4SoftwreClibs++;
             AddItBetweenCLibs(obj, g);
             repairObjectView();
 
@@ -231,7 +229,7 @@ public class forInBar : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
             g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.GetComponent<rightInFor>().setFor(this.gameObject);
+            g.name = name + "r" + counter4SoftwreClibs++;
             AddIt(g);
             repairObjectView();
         }
@@ -245,61 +243,12 @@ public class forInBar : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
             g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.GetComponent<rightInFor>().setFor(this.gameObject);
-
-            g.name = name + "u" + counter4SoftwreClibs++;
+            g.name = name + "r" + counter4SoftwreClibs++;
             AddItBetweenCLibs(obj, g);
             repairObjectView();
 
         }
     }
-
-
-/*    public void addFor2For(string name)
-    {
-        if (counter4SoftwreClibs < 11)
-        {
-            GameObject g = Instantiate(forInFor);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
-            g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.GetComponent<forInFor>().setFor(this.gameObject);
-            AddIt(g);
-            repairObjectView();
-        }
-    }
-
-    public void addFor2ForbetweenClibs(GameObject obj)
-    {
-        if (counter4SoftwreClibs < 11)
-        {
-            GameObject g = Instantiate(forInFor);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
-            g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.GetComponent<forInFor>().setFor(this.gameObject);
-
-            g.name = name + "u" + counter4SoftwreClibs++;
-            AddItBetweenCLibs(obj, g);
-            repairObjectView();
-
-        }
-    }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -490,18 +439,12 @@ public class forInBar : MonoBehaviour
         Body.SetActive(active);
     }
 
-    public void setb2(GameObject b2)
-    {
-        this.b2 = b2;
-    }
-
 
     private void AddIt(GameObject obj)
     {
         if (objects.Count > 0)
         {
             GameObject previos = getFromObjects(objects.Count - 1);
-            obj.name = name + "u" + counter4SoftwreClibs++;
             addtoObjects(obj);
             float x = previos.GetComponent<RectTransform>().localPosition.x;
             float y = previos.GetComponent<RectTransform>().localPosition.y;
@@ -510,7 +453,6 @@ public class forInBar : MonoBehaviour
         }
         else
         {
-            obj.name = name + "u" + counter4SoftwreClibs++;
             addtoObjects(obj);
             obj.GetComponent<RectTransform>().localPosition = new Vector3((float)0, (float)0, (float)0);
         }

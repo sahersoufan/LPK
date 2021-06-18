@@ -21,7 +21,7 @@ public class num : MonoBehaviour
     }
     void TaskOnClick()
     {
-        if(counter < 3)
+        if(counter < maxNum)
         {
             counter++;
         }

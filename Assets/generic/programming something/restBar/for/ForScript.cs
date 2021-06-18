@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ForScript : MonoBehaviour
 {
-    [SerializeField] GameObject b2;
+    private GameObject b2;
     bool canMove;
     bool dragging;
     Vector3 basePos;
@@ -13,6 +13,7 @@ public class ForScript : MonoBehaviour
 
     private void Start()
     {
+        b2 = this.transform.parent.parent.parent.Find("bar2").gameObject;
         upCollider = GetComponent<BoxCollider2D>();
         canMove = false;
         dragging = false;
@@ -21,6 +22,11 @@ public class ForScript : MonoBehaviour
 
     void Update()
     {
+        var barScript = b2.GetComponent<bar2>();
+        float x = this.GetComponent<RectTransform>().position.x;
+        float y = this.GetComponent<RectTransform>().position.y;
+        Vector2 v = new Vector2(x, y);
+
         Vector2 mousePos = Input.mousePosition;
         if (Input.GetMouseButtonDown(0))
         {
@@ -45,38 +51,25 @@ public class ForScript : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            var barScript = b2.GetComponent<bar2>();
             canMove = false;
-            float x = this.GetComponent<RectTransform>().position.x;
-            float y = this.GetComponent<RectTransform>().position.y;
-            Vector2 v = new Vector2(x, y);
-            if (barScript.isInside(v) && dragging)
+
+            if (dragging)
             {
-                barScript.addFor();
+                GameObject temp;
+                if (barScript.isInside(v) && dragging)
+                {
+                    barScript.addFor();
+                    dragging = false;
+                }
+                if (dragging && (temp = barScript.isInsideAClibs(v)) != null)
+                {
+                    barScript.addForBetween(temp);
+                    dragging = false;
+                }
+
+                this.transform.localPosition = basePos;
                 dragging = false;
             }
-            GameObject objInList;
-            if (dragging && (objInList = barScript.isInsideAClibs(v)) != null)
-            {
-                barScript.addForBetween(objInList);
-                dragging = false;
-            }
-/*            GameObject ForObject = barScript.isInsideForBody(v);
-            if (ForObject != null && dragging)
-            {
-                barScript.addUpInForBody(ForObject);
-                dragging = false;
-            }
-
-            if (barScript.isInsideAForClibsAndAddIt(v) && dragging)
-            {
-                dragging = false;
-            }*/
-
-
-            this.transform.localPosition = basePos;
-            dragging = false;
-
         }
 
     }

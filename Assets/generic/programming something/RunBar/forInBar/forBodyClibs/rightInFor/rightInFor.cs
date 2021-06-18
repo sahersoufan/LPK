@@ -4,22 +4,9 @@ using UnityEngine;
 
 public class rightInFor : MonoBehaviour
 {
-    private GameObject For;
     bool canMove;
     bool dragging;
     BoxCollider2D rightCollider;
-
-
-    public void setFor(GameObject For)
-    {
-        this.For = For;
-    }
-
-    public GameObject getFor()
-    {
-        return this.gameObject;
-    }
-
 
 
     void Start()
@@ -57,7 +44,7 @@ public class rightInFor : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            var ForScript = For.GetComponent<forInBar>();
+            var ForScript = this.transform.parent.transform.parent.GetComponent<forInBar>();
 
             canMove = false;
             GameObject temp;

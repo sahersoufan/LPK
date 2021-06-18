@@ -9,11 +9,11 @@ public class bar2 : MonoBehaviour
 
     private BoxCollider2D boxCollider;
     private ArrayList objects = new ArrayList();
-    public GameObject upInBar;
-    public GameObject downInBar;
-    public GameObject leftInBar;
-    public GameObject rightInBar;
-    public GameObject ForInBar;
+    [SerializeField] GameObject upInBar;
+    [SerializeField] GameObject downInBar;
+    [SerializeField] GameObject leftInBar;
+    [SerializeField] GameObject rightInBar;
+    [SerializeField] GameObject ForInBar;
 
     private static int counter4SoftwreClibs = 0;
     private float startUpOfClibs;
@@ -47,33 +47,9 @@ public class bar2 : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform);
             g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
-            g.GetComponent<upInBar>().setb2(this.gameObject);
-            if (objects.Count > 0)
-            {
-                GameObject previos = getFromObjects(objects.Count - 1);
-                g.name = "u" + counter4SoftwreClibs;
-                counter4SoftwreClibs++;
-                g.layer = 6;
-                addtoObjects(g);
-                float x = previos.GetComponent<RectTransform>().localPosition.x;
-                float y = previos.GetComponent<RectTransform>().localPosition.y;
-                float z = previos.GetComponent<RectTransform>().localPosition.z;
-                g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y - 7, (float)z);
-
-            }
-            else
-            {
-                g.name = "u" + counter4SoftwreClibs;
-                counter4SoftwreClibs++;
-                g.layer = 6;
-                addtoObjects(g);
-                g.GetComponent<RectTransform>().localPosition = new Vector3((float)-25, (float)46, (float)0);
-
-            }
-
-            float xColl = boxCollider.offset.x;
-            float yColl = boxCollider.offset.y;
-            boxCollider.offset = new Vector2(xColl, yColl - 7);
+            g.name = "u" + counter4SoftwreClibs;
+            counter4SoftwreClibs++;
+            addObjToBar(g);
         }
     }
 
@@ -85,36 +61,9 @@ public class bar2 : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform);
             g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
-            g.GetComponent<upInBar>().setb2(this.gameObject);
-
             g.name = "u" + counter4SoftwreClibs;
             counter4SoftwreClibs++;
-            g.layer = 6;
-
-
-            float x = obj.GetComponent<RectTransform>().localPosition.x;
-            float y = obj.GetComponent<RectTransform>().localPosition.y;
-            float z = obj.GetComponent<RectTransform>().localPosition.z;
-            g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y, (float)z);
-
-
-
-            for (int i = objects.IndexOf(obj); i < objects.Count; i++)
-            {
-                GameObject temp = (GameObject)objects[i];
-                float x1 = temp.GetComponent<RectTransform>().localPosition.x;
-                float y1 = temp.GetComponent<RectTransform>().localPosition.y;
-                float z1 = temp.GetComponent<RectTransform>().localPosition.z;
-                temp.GetComponent<RectTransform>().localPosition = new Vector3(x1, y1 - 7, z1);
-            }
-
-
-            objects.Insert(objects.IndexOf(obj), g);
-
-            float xColl = boxCollider.offset.x;
-            float yColl = boxCollider.offset.y;
-            boxCollider.offset = new Vector2(xColl, yColl - 7);
-
+            AddObjBetweenCLibsInBar(g, obj);
         }
 
     }
@@ -129,34 +78,10 @@ public class bar2 : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform);
             g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
-            g.GetComponent<downInBar>().setb2(this.gameObject);
+            g.name = "d" + counter4SoftwreClibs;
+            counter4SoftwreClibs++;
 
-            if (objects.Count > 0)
-            {
-                GameObject previos = getFromObjects(objects.Count - 1);
-                g.name = "d" + counter4SoftwreClibs;
-                counter4SoftwreClibs++;
-                g.layer = 6;
-                addtoObjects(g);
-                float x = previos.GetComponent<RectTransform>().localPosition.x;
-                float y = previos.GetComponent<RectTransform>().localPosition.y;
-                float z = previos.GetComponent<RectTransform>().localPosition.z;
-                g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y - 7, (float)z);
-
-            }
-            else
-            {
-                g.name = "d" + counter4SoftwreClibs;
-                counter4SoftwreClibs++;
-                g.layer = 6;
-                addtoObjects(g);
-                g.GetComponent<RectTransform>().localPosition = new Vector3((float)-25, (float)46, (float)0);
-
-            }
-
-            float xColl = boxCollider.offset.x;
-            float yColl = boxCollider.offset.y;
-            boxCollider.offset = new Vector2(xColl, yColl - 7);
+            addObjToBar(g);
         }
     }
 
@@ -168,36 +93,9 @@ public class bar2 : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform);
             g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
-            g.GetComponent<downInBar>().setb2(this.gameObject);
-
             g.name = "d" + counter4SoftwreClibs;
             counter4SoftwreClibs++;
-            g.layer = 6;
-
-
-            float x = obj.GetComponent<RectTransform>().localPosition.x;
-            float y = obj.GetComponent<RectTransform>().localPosition.y;
-            float z = obj.GetComponent<RectTransform>().localPosition.z;
-            g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y, (float)z);
-
-
-
-            for (int i = objects.IndexOf(obj); i < objects.Count; i++)
-            {
-                GameObject temp = (GameObject)objects[i];
-                float x1 = temp.GetComponent<RectTransform>().localPosition.x;
-                float y1 = temp.GetComponent<RectTransform>().localPosition.y;
-                float z1 = temp.GetComponent<RectTransform>().localPosition.z;
-                temp.GetComponent<RectTransform>().localPosition = new Vector3(x1, y1 - 7, z1);
-            }
-
-
-            objects.Insert(objects.IndexOf(obj), g);
-            float xColl = boxCollider.offset.x;
-            float yColl = boxCollider.offset.y;
-            boxCollider.offset = new Vector2(xColl, yColl - 7);
-
-
+            AddObjBetweenCLibsInBar(g, obj);
         }
 
     }
@@ -211,35 +109,9 @@ public class bar2 : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform);
             g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
-            g.GetComponent<leftInBar>().setb2(this.gameObject);
-
-            if (objects.Count > 0)
-            {
-                GameObject previos = getFromObjects(objects.Count - 1);
-                g.name = "l" + counter4SoftwreClibs;
-                counter4SoftwreClibs++;
-                g.layer = 6;
-                addtoObjects(g);
-                float x = previos.GetComponent<RectTransform>().localPosition.x;
-                float y = previos.GetComponent<RectTransform>().localPosition.y;
-                float z = previos.GetComponent<RectTransform>().localPosition.z;
-                g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y - 7, (float)z);
-                
-
-            }
-            else
-            {
-                g.name = "l" + counter4SoftwreClibs;
-                counter4SoftwreClibs++;
-                g.layer = 6;
-                addtoObjects(g);
-                g.GetComponent<RectTransform>().localPosition = new Vector3((float)-25, (float)46, (float)0);
-
-            }
-
-            float xColl = boxCollider.offset.x;
-            float yColl = boxCollider.offset.y;
-            boxCollider.offset = new Vector2(xColl, yColl - 7);
+            g.name = "l" + counter4SoftwreClibs;
+            counter4SoftwreClibs++;
+            addObjToBar(g);
         }
     }
 
@@ -252,35 +124,8 @@ public class bar2 : MonoBehaviour
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform);
             g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
             g.name = "l" + counter4SoftwreClibs;
-            g.GetComponent<leftInBar>().setb2(this.gameObject);
-
             counter4SoftwreClibs++;
-            g.layer = 6;
-
-
-            float x = obj.GetComponent<RectTransform>().localPosition.x;
-            float y = obj.GetComponent<RectTransform>().localPosition.y;
-            float z = obj.GetComponent<RectTransform>().localPosition.z;
-            g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y, (float)z);
-
-
-
-            for (int i = objects.IndexOf(obj); i < objects.Count; i++)
-            {
-                GameObject temp = (GameObject)objects[i];
-                float x1 = temp.GetComponent<RectTransform>().localPosition.x;
-                float y1 = temp.GetComponent<RectTransform>().localPosition.y;
-                float z1 = temp.GetComponent<RectTransform>().localPosition.z;
-                temp.GetComponent<RectTransform>().localPosition = new Vector3(x1, y1 - 7, z1);
-            }
-
-
-            objects.Insert(objects.IndexOf(obj), g);
-            float xColl = boxCollider.offset.x;
-            float yColl = boxCollider.offset.y;
-            boxCollider.offset = new Vector2(xColl, yColl - 7);
-
-
+            AddObjBetweenCLibsInBar(g, obj);
         }
 
     }
@@ -295,34 +140,9 @@ public class bar2 : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform);
             g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
-            g.GetComponent<rightInBar>().setb2(this.gameObject);
-
-            if (objects.Count > 0)
-            {
-                GameObject previos = getFromObjects(objects.Count - 1);
-                g.name = "r" + counter4SoftwreClibs;
-                counter4SoftwreClibs++;
-                g.layer = 6;
-                addtoObjects(g);
-                float x = previos.GetComponent<RectTransform>().localPosition.x;
-                float y = previos.GetComponent<RectTransform>().localPosition.y;
-                float z = previos.GetComponent<RectTransform>().localPosition.z;
-                g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y - 7, (float)z);
-                
-            }
-            else
-            {
-                g.name = "r" + counter4SoftwreClibs;
-                counter4SoftwreClibs++;
-                g.layer = 6;
-                addtoObjects(g);
-                g.GetComponent<RectTransform>().localPosition = new Vector3((float)-25, (float)46, (float)0);
-
-            }
-
-            float xColl = boxCollider.offset.x;
-            float yColl = boxCollider.offset.y;
-            boxCollider.offset = new Vector2(xColl, yColl - 7);
+            g.name = "r" + counter4SoftwreClibs;
+            counter4SoftwreClibs++;
+            addObjToBar(g);
         }
     }
 
@@ -334,36 +154,10 @@ public class bar2 : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform);
             g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
-            g.GetComponent<rightInBar>().setb2(this.gameObject);
 
             g.name = "r" + counter4SoftwreClibs;
             counter4SoftwreClibs++;
-            g.layer = 6;
-
-
-            float x = obj.GetComponent<RectTransform>().localPosition.x;
-            float y = obj.GetComponent<RectTransform>().localPosition.y;
-            float z = obj.GetComponent<RectTransform>().localPosition.z;
-            g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y, (float)z);
-
-
-
-            for (int i = objects.IndexOf(obj); i < objects.Count; i++)
-            {
-                GameObject temp = (GameObject)objects[i];
-                float x1 = temp.GetComponent<RectTransform>().localPosition.x;
-                float y1 = temp.GetComponent<RectTransform>().localPosition.y;
-                float z1 = temp.GetComponent<RectTransform>().localPosition.z;
-                temp.GetComponent<RectTransform>().localPosition = new Vector3(x1, y1 - 7, z1);
-            }
-
-
-            objects.Insert(objects.IndexOf(obj), g);
-            float xColl = boxCollider.offset.x;
-            float yColl = boxCollider.offset.y;
-            boxCollider.offset = new Vector2(xColl, yColl - 7);
-
-
+            AddObjBetweenCLibsInBar(g, obj);
         }
 
     }
@@ -377,33 +171,9 @@ public class bar2 : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform);
             g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
-            g.GetComponent<forInBar>().setb2(this.gameObject);
-
-            if (objects.Count > 0)
-            {
-                GameObject previos = getFromObjects(objects.Count - 1);
-                g.name = "f" + counter4SoftwreClibs;
-                counter4SoftwreClibs++;
-                addtoObjects(g);
-                float x = previos.GetComponent<RectTransform>().localPosition.x;
-                float y = previos.GetComponent<RectTransform>().localPosition.y;
-                float z = previos.GetComponent<RectTransform>().localPosition.z;
-                g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y - 7, (float)z);
-
-            }
-            else
-            {
-                g.name = "f" + counter4SoftwreClibs;
-                counter4SoftwreClibs++;
-                g.layer = 6;
-                addtoObjects(g);
-                g.GetComponent<RectTransform>().localPosition = new Vector3((float)-25, (float)46, (float)0);
-
-            }
-
-            float xColl = boxCollider.offset.x;
-            float yColl = boxCollider.offset.y;
-            boxCollider.offset = new Vector2(xColl, yColl - 7);
+            g.name = "f" + counter4SoftwreClibs;
+            counter4SoftwreClibs++;
+            addObjToBar(g);
         }
     }
 
@@ -416,36 +186,9 @@ public class bar2 : MonoBehaviour
             g.AddComponent<RectTransform>();
             g.GetComponent<RectTransform>().SetParent(this.gameObject.transform);
             g.transform.localScale = new Vector3((float)0.27, (float)0.11, (float)1);
-            g.GetComponent<forInBar>().setb2(this.gameObject);
-
             g.name = "f" + counter4SoftwreClibs;
             counter4SoftwreClibs++;
-            g.layer = 6;
-
-
-            float x = obj.GetComponent<RectTransform>().localPosition.x;
-            float y = obj.GetComponent<RectTransform>().localPosition.y;
-            float z = obj.GetComponent<RectTransform>().localPosition.z;
-            g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y, (float)z);
-
-
-
-            for (int i = objects.IndexOf(obj); i < objects.Count; i++)
-            {
-                GameObject temp = (GameObject)objects[i];
-                float x1 = temp.GetComponent<RectTransform>().localPosition.x;
-                float y1 = temp.GetComponent<RectTransform>().localPosition.y;
-                float z1 = temp.GetComponent<RectTransform>().localPosition.z;
-                temp.GetComponent<RectTransform>().localPosition = new Vector3(x1, y1 - 7, z1);
-            }
-
-
-            objects.Insert(objects.IndexOf(obj), g);
-            float xColl = boxCollider.offset.x;
-            float yColl = boxCollider.offset.y;
-            boxCollider.offset = new Vector2(xColl, yColl - 7);
-
-
+            AddObjBetweenCLibsInBar(g, obj);
         }
 
     }
@@ -480,7 +223,7 @@ public class bar2 : MonoBehaviour
 
     public bool canRemove(Vector2 point)
     {
-        return point.x < -50 ? true : false;
+        return point.x < (float) -50 ? true : false;
     }
     public void removeFromObjects(GameObject g)
     {
@@ -636,11 +379,59 @@ public class bar2 : MonoBehaviour
 
 
 
+////////////////// Add to Bar ///////////////////////
+private void addObjToBar(GameObject g)
+    {
+
+        if (objects.Count > 0)
+        {
+            GameObject previos = getFromObjects(objects.Count - 1);
+            float x = previos.GetComponent<RectTransform>().localPosition.x;
+            float y = previos.GetComponent<RectTransform>().localPosition.y;
+            float z = previos.GetComponent<RectTransform>().localPosition.z;
+            g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y - 7, (float)z);
+
+        }
+        else
+        {
+            g.GetComponent<RectTransform>().localPosition = new Vector3((float)-25, (float)46, (float)0);
+
+        }
+        addtoObjects(g);
+
+        float xColl = boxCollider.offset.x;
+        float yColl = boxCollider.offset.y;
+        boxCollider.offset = new Vector2(xColl, yColl - 7);
+    }
+
+    private void AddObjBetweenCLibsInBar(GameObject g, GameObject obj)
+    {
+
+
+        float x = obj.GetComponent<RectTransform>().localPosition.x;
+        float y = obj.GetComponent<RectTransform>().localPosition.y;
+        float z = obj.GetComponent<RectTransform>().localPosition.z;
+        g.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y, (float)z);
 
 
 
+        for (int i = objects.IndexOf(obj); i < objects.Count; i++)
+        {
+            GameObject temp = (GameObject)objects[i];
+            float x1 = temp.GetComponent<RectTransform>().localPosition.x;
+            float y1 = temp.GetComponent<RectTransform>().localPosition.y;
+            float z1 = temp.GetComponent<RectTransform>().localPosition.z;
+            temp.GetComponent<RectTransform>().localPosition = new Vector3(x1, y1 - 7, z1);
+        }
 
 
+        objects.Insert(objects.IndexOf(obj), g);
+
+        float xColl = boxCollider.offset.x;
+        float yColl = boxCollider.offset.y;
+        boxCollider.offset = new Vector2(xColl, yColl - 7);
+
+    }
 
 
 
