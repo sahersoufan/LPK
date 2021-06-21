@@ -44,43 +44,105 @@ public class leftInBar : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            canMove = false;
             if (dragging)
             {
-                var barScript = this.transform.parent.GetComponent<bar2>();
-                float x = this.GetComponent<RectTransform>().localPosition.x;
-                float y = this.GetComponent<RectTransform>().localPosition.y;
-                Vector2 v = new Vector2(x, y);
-                GameObject temp;
+                canMove = false;
+                float xL = this.GetComponent<RectTransform>().localPosition.x;
+                float yL = this.GetComponent<RectTransform>().localPosition.y;
+                Vector2 vL = new Vector2(xL, yL);
+                float xG = this.GetComponent<RectTransform>().position.x;
+                float yG = this.GetComponent<RectTransform>().position.y;
+                Vector2 vG = new Vector2(xG, yG);
 
-                if (barScript.canRemove(v) && dragging)
+                if (gameObject.name.Equals("left") && this.transform.parent.name.Equals("bar2"))
                 {
-                    barScript.removeFromObjects(this.gameObject);
-                    Destroy(this.gameObject);
-                    dragging = false;
+                    var barScript = this.transform.parent.GetComponent<bar2>();
+                    GameObject temp;
+                    if (barScript.canRemove(vL) && dragging)
+                    {
+                        barScript.removeFromObjects(this.gameObject);
+                        Destroy(this.gameObject);
+                        dragging = false;
 
+                    }
+                    if (barScript.isInside(vG) && dragging)
+                    {
+                        barScript.changeObjectPosition(this.gameObject);
+                        dragging = false;
+                    }
+                    if ((temp = barScript.isInsideAClibs4InBarClibs(this.gameObject)) && dragging)
+                    {
+
+                        barScript.changeObjectPositionbetweenClibs(this.gameObject, temp);
+                        dragging = false;
+
+                    }
+                    if (dragging)
+                    {
+                        barScript.makeItAsDefault(this.gameObject);
+                        dragging = false;
+                    }
                 }
-                if (barScript.isInside(v) && dragging)
+                else if (this.transform.parent.transform.parent.gameObject.name.Equals("for"))
                 {
-                    barScript.changeObjectPosition(this.gameObject);
-                    dragging = false;
+                    var barScript = this.transform.parent.transform.parent.GetComponent<forInBar>();
+                    GameObject temp;
+                    if (barScript.canRemove(vL) && dragging)
+                    {
+                        barScript.removeFromObjects(this.gameObject);
+                        Destroy(this.gameObject);
+                        dragging = false;
+
+                    }
+                    if (barScript.isInside(vG) && dragging)
+                    {
+                        barScript.changeObjectPosition(this.gameObject);
+                        dragging = false;
+                    }
+                    if ((temp = barScript.isInsideAClibs4InBarClibs(this.gameObject)) && dragging)
+                    {
+
+                        barScript.changeObjectPositionbetweenClibs(this.gameObject, temp);
+                        dragging = false;
+
+                    }
+                    if (dragging)
+                    {
+                        barScript.makeItAsDefault(this.gameObject);
+                        dragging = false;
+                    }
                 }
-                if ((temp = barScript.isInsideAClibs4InBarClibs(this.gameObject)) && dragging)
+                else if (this.transform.parent.transform.parent.gameObject.name.Equals("if"))
                 {
+                    var barScript = this.transform.parent.transform.parent.GetComponent<ifInBar>();
+                    GameObject temp;
+                    if (barScript.canRemove(vL) && dragging)
+                    {
+                        barScript.removeFromObjects(this.gameObject);
+                        Destroy(this.gameObject);
+                        dragging = false;
 
-                    barScript.changeObjectPositionbetweenClibs(this.gameObject, temp);
-                    dragging = false;
+                    }
+                    if (barScript.isInside(vG) && dragging)
+                    {
+                        barScript.changeObjectPosition(this.gameObject);
+                        dragging = false;
+                    }
+                    if ((temp = barScript.isInsideAClibs4InBarClibs(this.gameObject)) && dragging)
+                    {
 
+                        barScript.changeObjectPositionbetweenClibs(this.gameObject, temp);
+                        dragging = false;
+
+                    }
+                    if (dragging)
+                    {
+                        barScript.makeItAsDefault(this.gameObject);
+                        dragging = false;
+                    }
                 }
-                if (dragging)
-                {
-                    barScript.makeItAsDefault(this.gameObject);
-                    dragging = false;
-                }
-
             }
+
         }
-
-
     }
 }

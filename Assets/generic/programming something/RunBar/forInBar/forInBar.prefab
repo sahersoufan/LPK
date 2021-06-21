@@ -47,13 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa74f7115cc36c4da247bcea16a8cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upInFor: {fileID: 1516698839816245768, guid: b9a659a5b0f0e144096427482aa6f57b, type: 3}
-  downInFor: {fileID: 4563664052562808280, guid: ecaa7bdc432a8ed4f8d2e203c4cd4892, type: 3}
-  leftInFor: {fileID: 1146805816893992839, guid: c67f94fff541e05429452e7f8f54ab11, type: 3}
-  rightInFor: {fileID: 2617058519401227740, guid: 123a8a8024901f441aa5f0054145e1af, type: 3}
-  Body: {fileID: 6378863408212908323}
-  forBody: {fileID: 4810402089748570383}
-  collider4ForBody: {fileID: 7811584377923228529}
+  upInFor: {fileID: 1516698839816245768, guid: 60f9807ace47a6a40968ee145763b6c7, type: 3}
+  downInFor: {fileID: 4563664052562808280, guid: d904b29daf088884db983537e97cf272, type: 3}
+  leftInFor: {fileID: 1146805816893992839, guid: 6278d62258139b64a94c499d9c4ebe07, type: 3}
+  rightInFor: {fileID: 2617058519401227740, guid: 293ffd1ee1daebc4a8652b322b292456, type: 3}
+  ifInFor: {fileID: 2942112507505304218, guid: 6845af3b96f65534caaae34807e27f1a, type: 3}
 --- !u!61 &310390406844584689
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -274,7 +272,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d0ae2dd8c73af4b8efe2feffe782bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yourButton: {fileID: 0}
 --- !u!1 &1852846657909625689
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &15215433595068354
+--- !u!1 &7997067473784987281
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 15215433595068355}
-  - component: {fileID: 15215433595068357}
-  - component: {fileID: 15215433595068356}
+  - component: {fileID: 7997067473920282352}
+  - component: {fileID: 7997067473784987285}
+  - component: {fileID: 7997067473784987287}
+  - component: {fileID: 7997067473784987280}
+  - component: {fileID: 7997067473784987286}
   m_Layer: 5
   m_Name: bar2
   m_TagString: Untagged
@@ -18,40 +20,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &15215433595068355
+--- !u!224 &7997067473920282352
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 15215433595068354}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 7997067473784987281}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.54, y: 3.4, z: 1}
+  m_LocalScale: {x: 3.589, y: 7.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 358, y: -0}
+  m_AnchoredPosition: {x: 640, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &15215433595068357
+--- !u!222 &7997067473784987285
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 15215433595068354}
+  m_GameObject: {fileID: 7997067473784987281}
   m_CullTransparentMesh: 1
---- !u!114 &15215433595068356
+--- !u!114 &7997067473784987287
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 15215433595068354}
+  m_GameObject: {fileID: 7997067473784987281}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -75,3 +77,47 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!61 &7997067473784987280
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7997067473784987281}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 100, y: 100}
+  m_EdgeRadius: 0
+--- !u!114 &7997067473784987286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7997067473784987281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b00e9fc8867c2ce45bdb23ce86efe09e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upInBar: {fileID: 1516698839816245768, guid: 60f9807ace47a6a40968ee145763b6c7, type: 3}
+  downInBar: {fileID: 4563664052562808280, guid: d904b29daf088884db983537e97cf272, type: 3}
+  leftInBar: {fileID: 1146805816893992839, guid: 6278d62258139b64a94c499d9c4ebe07, type: 3}
+  rightInBar: {fileID: 2617058519401227740, guid: 293ffd1ee1daebc4a8652b322b292456, type: 3}
+  ForInBar: {fileID: 1258774632422277578, guid: 0ecd49b9442992e4391a2476ea623209, type: 3}
+  ifInBar: {fileID: 2942112507505304218, guid: 6845af3b96f65534caaae34807e27f1a, type: 3}

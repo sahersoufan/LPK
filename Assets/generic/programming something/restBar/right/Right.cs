@@ -59,24 +59,7 @@ public class Right : MonoBehaviour
 
             if (dragging)
             {
-                GameObject temp;
-                if (barScript.isInside(v) && dragging)
-                {
-                    barScript.addRight();
-                    dragging = false;
-                }
-                if (dragging && (temp = barScript.isInsideAClibs(v)) != null)
-                {
-                    barScript.addRightBetween(temp);
-                    dragging = false;
-                }
-                if ((temp = barScript.isInsideForBody(v)) != null && dragging)
-                {
-                    barScript.addRightInForBody(temp);
-                    dragging = false;
-                }
-
-                if (barScript.isInsideAForClibsAndAddIt(v, "right") && dragging)
+                if (barScript.isInsideEverythingAndAddIt(v, "right") && dragging)
                 {
                     dragging = false;
                 }

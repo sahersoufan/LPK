@@ -59,24 +59,7 @@ public class left : MonoBehaviour
 
             if (dragging)
             {
-                GameObject temp;
-                if (barScript.isInside(v) && dragging)
-                {
-                    barScript.addLeft();
-                    dragging = false;
-                }
-                if (dragging && (temp = barScript.isInsideAClibs(v)) != null)
-                {
-                    barScript.addLeftBetween(temp);
-                    dragging = false;
-                }
-                if ((temp = barScript.isInsideForBody(v)) != null && dragging)
-                {
-                    barScript.addLeftInForBody(temp);
-                    dragging = false;
-                }
-
-                if (barScript.isInsideAForClibsAndAddIt(v, "left") && dragging)
+                if (barScript.isInsideEverythingAndAddIt(v, "left") && dragging)
                 {
                     dragging = false;
                 }

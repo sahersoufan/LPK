@@ -8,6 +8,7 @@ public class forInBar : MonoBehaviour
     [SerializeField] GameObject downInFor;
     [SerializeField] GameObject leftInFor;
     [SerializeField] GameObject rightInFor;
+    [SerializeField] GameObject ifInFor;
     bool canMove;
     bool dragging;
     BoxCollider2D upCollider;
@@ -19,6 +20,7 @@ public class forInBar : MonoBehaviour
     int counter4SoftwreClibs = 0;
 
     private bool canWork = false;
+
     public GameObject getForBody()
     {
         return forBody;
@@ -83,45 +85,97 @@ public class forInBar : MonoBehaviour
             canMove = false;
             if (dragging)
             {
-                var barScript = this.transform.parent.GetComponent<bar2>();
-                float x = this.GetComponent<RectTransform>().localPosition.x;
-                float y = this.GetComponent<RectTransform>().localPosition.y;
-                Vector2 v = new Vector2(x, y);
-                GameObject temp;
-                if (barScript.canRemove(v) && dragging)
-                {
-                    barScript.removeFromObjects(this.gameObject);
-                    Destroy(this.gameObject);
-                    dragging = false;
 
-                }
-                if (barScript.isInside(v) && dragging)
-                {
-                    barScript.changeObjectPosition(this.gameObject);
-                    dragging = false;
-                }
-                if ((temp = barScript.isInsideAClibs4InBarClibs(this.gameObject)) && dragging)
-                {
-
-                    barScript.changeObjectPositionbetweenClibs(this.gameObject, temp);
-                    dragging = false;
-
-                }
                 if (dragging)
                 {
-                    barScript.makeItAsDefault(this.gameObject);
-                    if (Body.active == false)
+                    canMove = false;
+                    float xL = this.GetComponent<RectTransform>().localPosition.x;
+                    float yL = this.GetComponent<RectTransform>().localPosition.y;
+                    Vector2 vL = new Vector2(xL, yL);
+                    float xG = this.GetComponent<RectTransform>().position.x;
+                    float yG = this.GetComponent<RectTransform>().position.y;
+                    Vector2 vG = new Vector2(xG, yG);
+
+                    if (gameObject.name.Equals("for") && this.transform.parent.name.Equals("bar2"))
                     {
-                        ActiveForBody(true);
-                        canWork = true;
-                    }
-                    else
+                        var barScript = this.transform.parent.GetComponent<bar2>();
+                        GameObject temp;
+                        if (barScript.canRemove(vL) && dragging)
+                        {
+                            barScript.removeFromObjects(this.gameObject);
+                            Destroy(this.gameObject);
+                            dragging = false;
+
+                        }
+                        if (barScript.isInside(vG) && dragging)
+                        {
+                            barScript.changeObjectPosition(this.gameObject);
+                            dragging = false;
+                        }
+                        if ((temp = barScript.isInsideAClibs4InBarClibs(this.gameObject)) && dragging)
+                        {
+
+                            barScript.changeObjectPositionbetweenClibs(this.gameObject, temp);
+                            dragging = false;
+
+                        }
+                        if (dragging)
+                        {
+                            barScript.makeItAsDefault(this.gameObject);
+                            if (Body.active == false)
+                            {
+                                ActiveForBody(true);
+                                canWork = true;
+                            }
+                            else
+                            {
+                                ActiveForBody(false);
+                                canWork = false;
+                                serachInChildsAndCloseIt();
+                            }
+                            dragging = false;
+                        }
+                    }else/* if (this.transform.parent.transform.parent.gameObject.name.Equals("if"))*/
                     {
-                        ActiveForBody(false);
-                        canWork = false;
+                        var barScript = this.transform.parent.transform.parent.GetComponent<ifInBar>();
+                        GameObject temp;
+                        if (barScript.canRemove(vL) && dragging)
+                        {
+                            barScript.removeFromObjects(this.gameObject);
+                            Destroy(this.gameObject);
+                            dragging = false;
+
+                        }
+                        if (barScript.isInside(vG) && dragging)
+                        {
+                            barScript.changeObjectPosition(this.gameObject);
+                            dragging = false;
+                        }
+                        if ((temp = barScript.isInsideAClibs4InBarClibs(this.gameObject)) && dragging)
+                        {
+
+                            barScript.changeObjectPositionbetweenClibs(this.gameObject, temp);
+                            dragging = false;
+
+                        }
+                        if (dragging)
+                        {
+                            barScript.makeItAsDefault(this.gameObject);
+                            if (Body.active == false)
+                            {
+                                ActiveForBody(true);
+                                canWork = true;
+                            }
+                            else
+                            {
+                                ActiveForBody(false);
+                                canWork = false;
+                            }
+                            dragging = false;
+                        }
                     }
-                    dragging = false;
                 }
+
             }
 
            GameObject button =  this.transform.Find("header").gameObject.transform.Find("num").gameObject;
@@ -131,123 +185,88 @@ public class forInBar : MonoBehaviour
         
     }
 
-    public void addUp2For(string name)
+    public void addUp2For()
     {
-        if (counter4SoftwreClibs < 11)
-        {
             GameObject g = Instantiate(upInFor);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
-            g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.name = name + "u" + counter4SoftwreClibs++;
+        g.name = "up";
             AddIt(g);
             repairObjectView();
-        }
     }
 
     public void addUp2ForbetweenClibs(GameObject obj)
     {
-        if (counter4SoftwreClibs < 11 )
-        {
             GameObject g = Instantiate(upInFor);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
-            g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.name = name + "u" + counter4SoftwreClibs++;
+        g.name = "up";
             AddItBetweenCLibs(obj, g);
             repairObjectView();
-
-        }
     }
 
 
-    public void addDown2For(string name)
+    public void addDown2For()
     {
-        if (counter4SoftwreClibs < 11)
-        {
             GameObject g = Instantiate(downInFor);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
-            g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.name = name + "d" + counter4SoftwreClibs++;
+        g.name = "down";
             AddIt(g);
             repairObjectView();
-        }
     }
 
     public void addDown2ForbetweenClibs(GameObject obj)
     {
-        if (counter4SoftwreClibs < 11)
-        {
             GameObject g = Instantiate(downInFor);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
-            g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.name = name + "d" + counter4SoftwreClibs++;
+        g.name = "down";
             AddItBetweenCLibs(obj, g);
             repairObjectView();
-
-        }
     }
 
 
-    public void addLeft2For(string name)
+    public void addLeft2For()
     {
-        if (counter4SoftwreClibs < 11)
-        {
             GameObject g = Instantiate(leftInFor);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
-            g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.name = name + "l" + counter4SoftwreClibs++;
+        g.name = "left";
             AddIt(g);
             repairObjectView();
-        }
     }
 
     public void addLeft2ForbetweenClibs(GameObject obj)
     {
-        if (counter4SoftwreClibs < 11)
-        {
             GameObject g = Instantiate(leftInFor);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
-            g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.name = name + "l" + counter4SoftwreClibs++;
+        g.name = "left";
             AddItBetweenCLibs(obj, g);
             repairObjectView();
-
-        }
     }
 
 
-    public void addRight2For(string name)
+    public void addRight2For()
     {
-        if (counter4SoftwreClibs < 11)
-        {
             GameObject g = Instantiate(rightInFor);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
-            g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.name = name + "r" + counter4SoftwreClibs++;
+        g.name = "right";
             AddIt(g);
             repairObjectView();
-        }
     }
 
     public void addRight2ForbetweenClibs(GameObject obj)
     {
-        if (counter4SoftwreClibs < 11)
-        {
             GameObject g = Instantiate(rightInFor);
-            g.AddComponent<RectTransform>();
-            g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
-            g.transform.localScale = new Vector3((float)0.95, (float)0.95, (float)1);
-            g.name = name + "r" + counter4SoftwreClibs++;
+        g.name = "right";
             AddItBetweenCLibs(obj, g);
             repairObjectView();
+    }
 
-        }
+
+    public void addIf2For()
+    {
+            GameObject g = Instantiate(ifInFor);
+        g.name = "if";
+            AddIt(g);
+            repairObjectView();
+    }
+
+    public void addIf2ForbetweenClibs(GameObject obj)
+    {
+            GameObject g = Instantiate(ifInFor);
+        g.name = "if";
+            AddItBetweenCLibs(obj, g);
+            repairObjectView();
     }
 
 
@@ -305,6 +324,92 @@ public class forInBar : MonoBehaviour
         float yColl = boxCollider.offset.y;
         boxCollider.offset = new Vector2(xColl, yColl + 100);
     }
+
+    // add any object to for
+    public bool isInsideEverythingAndAddIt(Vector3 point, string name, int counter)
+    {
+        Vector2 Point2D = new Vector2(point.x, point.y);
+        if (Point2D == collider4ForBody.GetComponent<Collider2D>().ClosestPoint(Point2D) && 
+            getCanWork() && 
+            counter4SoftwreClibs < counter + 1)
+        {
+
+            if (name.Equals("up"))
+            {
+                addUp2For();
+            }
+            else if (name.Equals("down"))
+            {
+                addDown2For();
+            }
+            else if (name.Equals("right"))
+            {
+                addRight2For();
+            }
+            else if (name.Equals("left"))
+            {
+                addLeft2For();
+            }
+            else if (name.Equals("if") && this.name.Length < 4 )
+            {
+                addIf2For();
+            }
+            return true;
+        }
+
+        ArrayList tempObjects = new ArrayList();
+        for (int i = 0; i < objects.Count; i++)
+        {
+            GameObject temp = (GameObject)objects[i];
+            if (Point2D == temp.GetComponent<Collider2D>().ClosestPoint(Point2D) && getCanWork() && counter4SoftwreClibs < counter + 1)
+            {
+                if (name.Equals("up"))
+                {
+                    addUp2ForbetweenClibs(temp);
+                }
+                else if (name.Equals("down"))
+                {
+                    addDown2ForbetweenClibs(temp);
+                }
+                else if (name.Equals("right"))
+                {
+                    addRight2ForbetweenClibs(temp);
+
+                }
+                else if (name.Equals("left"))
+                {
+                    addLeft2ForbetweenClibs(temp);
+
+                }
+                else if (name.Equals("if") && this.name.Length < 4)
+                {
+                    addIf2ForbetweenClibs(temp);
+
+                }
+                return true;
+            }
+
+            if (temp.name.Equals("if"))
+            {
+                tempObjects.Add(temp);
+            }
+        }
+
+
+        for (int i = 0; i < tempObjects.Count; i++)
+        {
+            GameObject temp = (GameObject)tempObjects[i];
+            if (temp.GetComponent<ifInBar>().isInsideEverythingAndAddIt(point, name, counter - (objects.IndexOf(temp) )))
+            {
+                return true;
+            }
+        }
+
+
+        return false;
+    }
+
+
 
     public bool isInside(Vector2 point)
     {
@@ -421,19 +526,6 @@ public class forInBar : MonoBehaviour
         }
     }
 
-    public GameObject isInsideAForClibs(Vector2 point)
-    {
-        for (int i = 0; i < objects.Count; i++)
-        {
-            GameObject temp = (GameObject)objects[i];
-            if (point == temp.GetComponent<Collider2D>().ClosestPoint(point))
-            {
-                return temp;
-            }
-        }
-        return null;
-    }
-
     public void ActiveForBody(bool active)
     {
         Body.SetActive(active);
@@ -442,6 +534,10 @@ public class forInBar : MonoBehaviour
 
     private void AddIt(GameObject obj)
     {
+        obj.AddComponent<RectTransform>();
+        obj.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
+        obj.GetComponent<RectTransform>().localScale = new Vector3((float)0.95, (float)0.95, (float)1);
+        counter4SoftwreClibs++;
         if (objects.Count > 0)
         {
             GameObject previos = getFromObjects(objects.Count - 1);
@@ -450,6 +546,8 @@ public class forInBar : MonoBehaviour
             float y = previos.GetComponent<RectTransform>().localPosition.y;
             float z = previos.GetComponent<RectTransform>().localPosition.z;
             obj.GetComponent<RectTransform>().localPosition = new Vector3((float)x, (float)y - 60, (float)z);
+
+
         }
         else
         {
@@ -460,6 +558,10 @@ public class forInBar : MonoBehaviour
 
     private void AddItBetweenCLibs(GameObject obj, GameObject g)
     {
+        g.AddComponent<RectTransform>();
+        g.GetComponent<RectTransform>().SetParent(this.gameObject.transform.Find("Body"));
+        g.GetComponent<RectTransform>().localScale = new Vector3((float)0.95, (float)0.95, (float)1);
+        counter4SoftwreClibs++;
         float x = obj.GetComponent<RectTransform>().localPosition.x;
         float y = obj.GetComponent<RectTransform>().localPosition.y;
         float z = obj.GetComponent<RectTransform>().localPosition.z;
@@ -499,6 +601,19 @@ public class forInBar : MonoBehaviour
         float xColl = boxCollider.offset.x;
         float yColl = boxCollider.offset.y;
         boxCollider.offset = new Vector2(xColl, yColl - 100);
+    }
+
+    void serachInChildsAndCloseIt()
+    {
+        for(int i = 0; i < objects.Count; i++)
+        {
+            GameObject temp = (GameObject)objects[i];
+            if (temp.name.Equals("if"))
+            {
+                temp.GetComponent<ifInBar>().setCanWork(false);
+                temp.GetComponent<ifInBar>().ActiveIfBody(false) ;
+            }
+        }
     }
 
 }

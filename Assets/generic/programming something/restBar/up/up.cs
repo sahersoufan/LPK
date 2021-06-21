@@ -56,24 +56,7 @@ public class up : MonoBehaviour
 
             if (dragging)
             {
-                GameObject temp;
-                if (barScript.isInside(v) && dragging)
-                {
-                    barScript.addUp();
-                    dragging = false;
-                }
-                if (dragging && (temp = barScript.isInsideAClibs(v)) != null)
-                {
-                    barScript.addUpBetween(temp);
-                    dragging = false;
-                }
-                if ((temp = barScript.isInsideForBody(v)) != null && dragging)
-                {
-                    barScript.addUpInForBody(temp);
-                    dragging = false;
-                }
-
-                if (barScript.isInsideAForClibsAndAddIt(v, "up") && dragging)
+                if (barScript.isInsideEverythingAndAddIt(v, "up") && dragging)
                 {
                     dragging = false;
                 }

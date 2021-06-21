@@ -57,24 +57,7 @@ public class down : MonoBehaviour
 
             if (dragging)
             {
-                GameObject temp;
-                if (barScript.isInside(v) && dragging)
-                {
-                    barScript.addDown();
-                    dragging = false;
-                }
-                if (dragging && (temp = barScript.isInsideAClibs(v)) != null)
-                {
-                    barScript.addDownBetween(temp);
-                    dragging = false;
-                }
-                if ((temp = barScript.isInsideForBody(v)) != null && dragging)
-                {
-                    barScript.addDownInForBody(temp);
-                    dragging = false;
-                }
-
-                if (barScript.isInsideAForClibsAndAddIt(v, "down") && dragging)
+                if (barScript.isInsideEverythingAndAddIt(v, "down") && dragging)
                 {
                     dragging = false;
                 }

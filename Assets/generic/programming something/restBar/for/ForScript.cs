@@ -55,18 +55,10 @@ public class ForScript : MonoBehaviour
 
             if (dragging)
             {
-                GameObject temp;
-                if (barScript.isInside(v) && dragging)
+                if (barScript.isInsideEverythingAndAddIt(v, "for") && dragging)
                 {
-                    barScript.addFor();
                     dragging = false;
                 }
-                if (dragging && (temp = barScript.isInsideAClibs(v)) != null)
-                {
-                    barScript.addForBetween(temp);
-                    dragging = false;
-                }
-
                 this.transform.localPosition = basePos;
                 dragging = false;
             }
