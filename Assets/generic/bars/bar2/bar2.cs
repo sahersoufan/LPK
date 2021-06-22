@@ -103,7 +103,7 @@ public class bar2 : MonoBehaviour
     {
 
             GameObject g = Instantiate(rightInBar);
-        g.name = "left";
+        g.name = "right";
             addObjToBar(g);
         
     }
